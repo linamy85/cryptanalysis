@@ -1,8 +1,19 @@
 require "./init.rb"
 
-unknown_key = 80.times.map { rand 2 }
+user_key = 32.times.map { rand 2 }
+puts "user key: #{user_key}"
+
+#unknown_key = 80.times.map { rand 2 }
+unknown_key = user_key[0,16] + user_key[4, 16] + user_key[8, 16] + user_key[12, 16] + user_key[16, 16]
+puts "extended key: #{unknown_key}"
+
 puts "building 10,000 known pairs..."
 known_pairs = KnownPairGenerator.generate(unknown_key, 10000)
+puts "Pair #1: #{known_pairs[0]}"
+puts "Pair #1: #{known_pairs[1]}"
+puts "Pair #1: #{known_pairs[2]}"
+puts "Pair #1: #{known_pairs[3]}"
+
 
 puts "processing 10,000 known pairs..."
 analyzer = Analyzer.new(known_pairs)
